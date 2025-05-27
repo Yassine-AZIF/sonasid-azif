@@ -1,0 +1,28 @@
+name: Build and Push to ACR
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v3
+
+    - name: Log in to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Log in to ACR
+      run: az acr login --name acraksprive
+
+    - name: Build Docker image
+      run: docker build -t acraksprive.azurecr.io/sonasid-app:v1 .
+
+    - name: Push Docker image
+      run: docker push acraksprive.azurecr.io/sonasid-app:v1
