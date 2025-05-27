@@ -1,4 +1,4 @@
-name: Build and Push to ACR
+name: Build, Push and Deploy to AKS
 
 on:
   push:
@@ -6,11 +6,11 @@ on:
       - main
 
 jobs:
-  build-and-push:
+  build-push-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout source code
+    - name: Checkout code
       uses: actions/checkout@v3
 
     - name: Log in to Azure
@@ -18,11 +18,19 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Log in to ACR
+    - name: Azure ACR Login
       run: az acr login --name acraksprive
 
-    - name: Build Docker image
+    - name: Build Docker Image
       run: docker build -t acraksprive.azurecr.io/sonasid-app:v1 .
 
-    - name: Push Docker image
+    - name: Push Docker Image
       run: docker push acraksprive.azurecr.io/sonasid-app:v1
+
+    - name: Get AKS credentials
+      run: az aks get-credentials --resource-group RG_test_aksprive --name aksprive --admin
+
+    - name: Set image in AKS deployment
+      run: |
+        kubectl set image deployment/sonasid-app sonasid=acraksprive.azurecr.io/sonasid-app:v1 --namespace default
+
