@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-push-deploy:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, windows]  # ✅ Utilise ton runner local
 
     steps:
     - name: Checkout code
@@ -33,4 +33,3 @@ jobs:
     - name: Set image in AKS deployment
       run: |
         kubectl set image deployment/sonasid-app sonasid=acraksprive.azurecr.io/sonasid-app:v1 --namespace default
-
