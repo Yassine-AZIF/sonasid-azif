@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-push-deploy:
-    runs-on: [self-hosted, windows]  # ✅ Utilise ton runner local
+    runs-on: self-hosted
 
     steps:
     - name: Checkout code
