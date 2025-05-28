@@ -13,23 +13,22 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Log in to Azure
+    - name: Azure login using SPN
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Docker Login to ACR
-      run: echo "${{ secrets.ACR_PASSWORD }}" | docker login acraksprive.azurecr.io -u ${{ secrets.ACR_USERNAME }} --password-stdin
+    - name: Docker login to ACR using secrets
+      run: echo "${{ secrets.ACR_PASSWORD }}" | docker login acraksprive.azurecr.io -u "${{ secrets.ACR_USERNAME }}" --password-stdin
 
-    - name: Build Docker Image
+    - name: Build Docker image
       run: docker build -t acraksprive.azurecr.io/sonasid-app:v1 .
 
-    - name: Push Docker Image
+    - name: Push Docker image
       run: docker push acraksprive.azurecr.io/sonasid-app:v1
 
     - name: Get AKS credentials
-      run: az aks get-credentials --resource-group RG_test_aksprive --name aksprive_test --overwrite-existing
+      run: az aks get-credentials --resource-group RG_test_aksprive --name aksprive_test
 
-    - name: Set image in AKS deployment
-      run: |
-        kubectl set image deployment/sonasid-app sonasid=acraksprive.azurecr.io/sonasid-app:v1 --namespace default
+    - name: Deploy to AKS
+      run: kubectl set image deployment/sonasid-app sonasid=acraksprive.azurecr.io/sonasid-app:v1 --namespace default
