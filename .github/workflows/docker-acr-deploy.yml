@@ -19,7 +19,7 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Azure ACR Login
-      run: az acr login --name acraksprive
+      run: az acr login -n acraksprive --expose-token
 
     - name: Build Docker Image
       run: docker build -t acraksprive.azurecr.io/sonasid-app:v1 .
