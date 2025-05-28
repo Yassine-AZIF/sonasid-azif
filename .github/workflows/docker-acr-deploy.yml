@@ -28,7 +28,7 @@ jobs:
       run: docker push acraksprive.azurecr.io/sonasid-app:v1
 
     - name: Get AKS credentials
-      run: az aks get-credentials --resource-group RG_test_aksprive --name aksprive
+      run: az aks get-credentials --resource-group RG_test_aksprive --name aksprive_test
 
     - name: Set image in AKS deployment
       run: |
