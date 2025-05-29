@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonasid-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sonasid
+  template:
+    metadata:
+      labels:
+        app: sonasid
+    spec:
+      containers:
+      - name: sonasid
+        image: acraksprive.azurecr.io/sonasid-app:v1
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sonasid-service
+spec:
+  selector:
+    app: sonasid
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: ClusterIP
