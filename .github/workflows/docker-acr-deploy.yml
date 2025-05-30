@@ -33,5 +33,7 @@ jobs:
     - name: Get AKS credentials (admin access)
       run: az aks get-credentials --name aksprive_test --resource-group RG_test_aksprive --admin
 
-    - name: Deploy to AKS
-      run: kubectl apply -f deployment.yaml
+    - name: Deploy app (Deployment + Service + Ingress)
+      run: |
+        kubectl apply -f deployment.yaml
+        kubectl apply -f ingress.yaml
