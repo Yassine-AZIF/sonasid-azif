@@ -35,6 +35,6 @@ jobs:
 
     - name: Deploy app (Deployment + Service + Ingress)
       run: |
-        sed -i "s/BUILD_ID/dev-${{ github.run_number }}/g" deployment.yml
+        sed -i "s/BUILD_ID/dev-${{ github.run_number }}/g" deployment.yaml
         kubectl apply -f deployment.yaml
         kubectl apply -f ingress.yaml
