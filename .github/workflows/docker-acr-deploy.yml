@@ -25,10 +25,10 @@ jobs:
       run: az acr login --name acraksprive
 
     - name: Build Docker image
-      run: docker build -t acraksprive.azurecr.io/sonasid-app:${{ github.run_number }} .
+      run: docker build -t acraksprive.azurecr.io/sonasid-app:dev-${{ github.run_number }} .
 
     - name: Push image to ACR
-      run: docker push acraksprive.azurecr.io/sonasid-app:${{ github.run_number }}
+      run: docker push acraksprive.azurecr.io/sonasid-app:dev-${{ github.run_number }}
 
     - name: Get AKS credentials (admin access)
       run: az aks get-credentials --name aksprive_test --resource-group RG_test_aksprive --admin
