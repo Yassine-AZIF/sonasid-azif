@@ -38,3 +38,4 @@ jobs:
         sed -i "s/BUILD_ID/dev-${{ github.run_number }}/g" deployment.yaml
         kubectl apply -f deployment.yaml
         kubectl apply -f ingress.yaml
+        
