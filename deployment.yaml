@@ -12,23 +12,23 @@ spec:
       labels:
         app: sonasid
     spec:
-      containers:
-      - name: sonasid
-        image: acrpprod001.azurecr.io/sonasid-app:BUILD_ID
-        ports:
-        - containerPort: 3000
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 3000
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 3000
-          initialDelaySeconds: 10
-          periodSeconds: 20
+     containers:
+     - name: sonasid
+  image: acrpprod001.azurecr.io/sonasid-app:BUILD_ID
+  ports:
+  - containerPort: 3000
+  readinessProbe:
+    httpGet:
+      path: /
+      port: 3000
+    initialDelaySeconds: 5
+    periodSeconds: 10
+  livenessProbe:
+    httpGet:
+      path: /
+      port: 3000
+    initialDelaySeconds: 10
+    periodSeconds: 20
 
 ---
 apiVersion: v1
