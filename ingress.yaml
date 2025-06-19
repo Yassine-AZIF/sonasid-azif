@@ -8,7 +8,8 @@ metadata:
 spec:
   ingressClassName: azure-application-gateway
   rules:
-  - http:
+  - host: app.domaine.com  # 🔁 REMPLACE avec ton domaine ou mets un nom valide
+    http:
       paths:
       - path: /
         pathType: Prefix
