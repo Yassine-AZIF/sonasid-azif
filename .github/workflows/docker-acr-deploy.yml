@@ -22,20 +22,19 @@ jobs:
         echo '{ "credsStore": "" }' > ~/.docker/config.json
 
     - name: ACR login
-      run: az acr login --name acraksprive
+      run: az acr login --name acrpprod001
 
     - name: Build Docker image
-      run: docker build -t acraksprive.azurecr.io/sonasid-app:dev-${{ github.run_number }} .
+      run: docker build -t acrpprod001.azurecr.io/sonasid-app:dev-${{ github.run_number }} .
 
     - name: Push image to ACR
-      run: docker push acraksprive.azurecr.io/sonasid-app:dev-${{ github.run_number }}
+      run: docker push acrpprod001.azurecr.io/sonasid-app:dev-${{ github.run_number }}
 
     - name: Get AKS credentials (admin access)
-      run: az aks get-credentials --name aksprive_test --resource-group RG_test_aksprive --admin
+      run: az aks get-credentials --name aks-pprod-cluster --resource-group rg-azu-aks-pprod-001 --admin
 
     - name: Deploy app (Deployment + Service + Ingress)
       run: |
         sed -i "s/BUILD_ID/dev-${{ github.run_number }}/g" deployment.yaml
         kubectl apply -f deployment.yaml
         kubectl apply -f ingress.yaml
-        
