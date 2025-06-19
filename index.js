@@ -213,7 +213,9 @@ router.delete('/accounts/:user', (req, res) => {
 app.use(apiPrefix, router);
 
 // Start the server
-app.listen(port, () => {
+// Start the server
+app.listen(port, '0.0.0.0', () => {
     console.log(`Server listening on port ${port}`);
 });
+
   
