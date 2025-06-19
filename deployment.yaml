@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: sonasid
-        image: acraksprive.azurecr.io/sonasid-app:BUILD_ID
+        image: acrpprod001.azurecr.io/sonasid-app:BUILD_ID
         ports:
         - containerPort: 3000
 ---
