@@ -6,8 +6,7 @@ metadata:
 spec:
   ingressClassName: azure-application-gateway
   rules:
-  - host: sonasid.test.local   # remplace par un domaine réel si disponible
-    http:
+  - http:
       paths:
       - path: /
         pathType: Prefix
